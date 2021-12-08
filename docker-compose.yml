@@ -2,8 +2,6 @@ version: "3.9"
 services:
   todolist:
     build : . # (1)
-    ports:
-      - 8080 # (2)
     deploy:
       replicas: 3
     labels:
@@ -20,3 +18,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.toml:/traefik.toml
+  postgres:
+    image: postgres:14.0-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example
